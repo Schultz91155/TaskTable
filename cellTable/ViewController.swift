@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var contactsList = [Task]()
+    var tasksList = [Task]()
    
     
     let tableView : UITableView = .init()
@@ -27,15 +27,15 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        contactsList = Source.storage.tasks
+        tasksList = Source.storage.tasks
         tableView.reloadData()
     }
     
-    func getContacts (contacts : [Task]) -> [[Task]]{
+    func getContacts (tasks : [Task]) -> [[Task]]{
         
         
-        let daily = contacts.filter{ $0.taskType == "daily"}
-        let weekly = contacts.filter{ $0.taskType == "weekly"}
+        let daily = tasks.filter{ $0.taskType == "daily"}
+        let weekly = tasks.filter{ $0.taskType == "weekly"}
 
      
         return[daily,weekly]
@@ -73,7 +73,7 @@ extension ViewController{
 extension ViewController : UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        getContacts(contacts: contactsList).count
+        getContacts(tasks: tasksList).count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -85,14 +85,14 @@ extension ViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        getContacts(contacts: contactsList)[section].count
+        getContacts(tasks: tasksList)[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewTableViewCell", for: indexPath) as? NewTableViewCell else{
             fatalError()
         }
-        cell.configure(contact: getContacts(contacts: contactsList)[indexPath.section][indexPath.row])
+        cell.configure(task: getContacts(tasks: tasksList)[indexPath.section][indexPath.row])
         return cell
     }
     

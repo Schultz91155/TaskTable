@@ -56,10 +56,10 @@ class NewTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure (contact : Task){
+    func configure (task : Task){
         //avatar.image = contact.image
-        nameLabel.text = contact.taskName
-        discriptionLabel.text = contact.taskDescription
+        nameLabel.text = task.taskName
+        discriptionLabel.text = task.taskDescription
     }
     
     
